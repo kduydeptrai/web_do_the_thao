@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMB Agency - Đồ Dùng Thể Thao Chính Hãng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --white: #ffffff;
+            --success: #16a34a;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--light-gray);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body.no-scroll { overflow: hidden; }
+
+        .container { width: 92%; max-width: 1280px; margin: 0 auto; }
+
+        /* ===== HEADER ===== */
+        header {
+            background: var(--white);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 14px 0;
+            flex-wrap: wrap;
+        }
+
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+
+        .logo-mark {
+            width: 42px; height: 42px;
+            background: linear-gradient(135deg, var(--primary), #7c3aed);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 15px; letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .logo-text { font-size: 22px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; white-space: nowrap; }
+        .logo-text span { color: var(--primary); }
+
+        nav.main-nav { display: flex; gap: 4px; }
+        nav.main-nav a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        nav.main-nav a:hover { color: var(--primary); background: var(--primary-light); }
+        nav.main-nav a.active { color: var(--primary); background: var(--primary-light); font-weight: 600; }
+
+        .search-box { flex: 1; max-width: 380px; position: relative; min-width: 180px; }
+
+        .search-box input {
+            width: 100%;
+            padding: 11px 18px 11px 46px;
+            border: 2px solid #e2e8f0;
+            border-radius: 50px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.25s;
+            background: var(--light-gray);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+        }
+
+        .search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--gray); font-size: 15px; }
+
+        .header-actions { display: flex; align-items: center; gap: 10px; }
+
+        .cart-btn, .hamburger-btn {
+            position: relative;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            border: none; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: var(--dark);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .cart-btn:hover, .hamburger-btn:hover { background: var(--primary-light); color: var(--primary); }
+
+        #cart-count {
+            position: absolute; top: -4px; right: -4px;
+            background: var(--danger); color: white;
+            font-size: 11px; font-weight: 700;
+            min-width: 20px; height: 20px; padding: 0 5px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+        #cart-count.hidden { display: none; }
+
+        .hamburger-btn { display: none; font-size: 20px; }
+        .hamburger-btn.active { background: var(--primary); color: white; }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 240px;
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            border-radius: 12px;
+            padding: 8px;
+            margin-top: 8px;
+            z-index: 999;
+            animation: slideDown 0.2s ease;
+        }
+        .mobile-menu.open { display: block; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .mobile-menu a:hover,
+        .mobile-menu a.active { background: var(--primary-light); color: var(--primary); }
+        .mobile-menu a i { width: 18px; text-align: center; color: var(--gray); }
+        .mobile-menu a:hover i,
+        .mobile-menu a.active i { color: var(--primary); }
+
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 998;
+            backdrop-filter: blur(2px);
+        }
+        .menu-overlay.open { display: block; }
+
+        /* ===== PAGE ===== */
+        .page { display: none; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+            color: white;
+            padding: 80px 0 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(37,99,235,0.3), transparent 70%);
+            top: -200px; right: -100px; border-radius: 50%;
+        }
+        .hero-content { position: relative; z-index: 1; max-width: 650px; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(8px);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px; font-weight: 500;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .hero h1 {
+            font-size: 46px; font-weight: 800;
+            line-height: 1.15; letter-spacing: -1px;
+            margin-bottom: 18px;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p { font-size: 17px; color: #cbd5e1; margin-bottom: 30px; max-width: 500px; }
+
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 14px 30px;
+            background: var(--primary); color: white;
+            text-decoration: none; border-radius: 50px;
+            font-weight: 600; font-size: 15px;
+            transition: all 0.25s; border: none; cursor: pointer;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37,99,235,0.3);
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title { text-align: center; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+        .section-subtitle { text-align: center; color: var(--gray); font-size: 15px; margin-bottom: 36px; }
+
+        /* ===== FILTER TABS ===== */
+        .filter-tabs { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+        .filter-tab {
+            padding: 10px 22px;
+            border: 1.5px solid #e2e8f0;
+            background: white;
+            border-radius: 50px;
+            font-size: 14px; font-weight: 500;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-tab:hover { border-color: var(--primary); color: var(--primary); }
+        .filter-tab.active { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+
+        /* ===== PRODUCT GRID ===== */
+        .products-section { padding: 70px 0; }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+        .product-img {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3 / 4;
+            background: #ffffff;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            transition: transform 0.4s;
+        }
+        .product-card:hover .product-img img { transform: scale(1.04); }
+
+        .product-tag {
+            position: absolute; top: 12px; left: 12px;
+            background: var(--accent); color: white;
+            font-size: 11px; font-weight: 700;
+            padding: 4px 12px; border-radius: 50px;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            z-index: 2;
+        }
+
+        .product-info { padding: 16px 18px 20px; display: flex; flex-direction: column; flex: 1; }
+        .product-category {
+            font-size: 11px; color: var(--primary);
+            font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; margin-bottom: 6px;
+        }
+        .product-name {
+            font-size: 16px; font-weight: 700;
+            color: var(--dark); margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        .product-price { font-size: 18px; font-weight: 800; color: #dc2626; margin-bottom: 14px; margin-top: auto; }
+
+        .btn-add-cart {
+            width: 100%;
+            padding: 10px;
+            background: var(--light-gray);
+            border: none; border-radius: 8px;
+            font-size: 13px; font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .btn-add-cart:hover { background: var(--primary); color: white; }
+
+        /* ===== PRODUCT DETAIL ===== */
+        .detail-page { padding: 40px 0 70px; background: white; min-height: 60vh; }
+        .breadcrumb { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--gray); margin-bottom: 28px; flex-wrap: wrap; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb span { color: #cbd5e1; }
+
+        .detail-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+        .detail-image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: #ffffff;
+            aspect-ratio: 3 / 4;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+        }
+        .detail-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .detail-info h1 { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 12px; }
+        .detail-cat {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 12px; font-weight: 600;
+            padding: 4px 14px;
+            border-radius: 50px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .detail-price { font-size: 30px; font-weight: 800; color: #dc2626; margin-bottom: 20px; }
+        .detail-desc { color: var(--gray); font-size: 15px; line-height: 1.8; margin-bottom: 28px; }
+
+        .detail-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+        .btn-back {
+            padding: 12px 24px;
+            background: var(--light-gray);
+            border: none; border-radius: 50px;
+            font-size: 14px; font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-back:hover { background: #e2e8f0; }
+
+        .btn-buy {
+            padding: 12px 32px;
+            background: var(--primary);
+            color: white; border: none;
+            border-radius: 50px;
+            font-size: 14px; font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-buy:hover { background: var(--primary-dark); transform: translateY(-1px); }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 48px;
+            flex-wrap: wrap;
+        }
+        .page-btn {
+            min-width: 42px; height: 42px;
+            padding: 0 14px;
+            border: 1.5px solid #e2e8f0;
+            background: white;
+            border-radius: 10px;
+            font-size: 14px; font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+        }
+        .page-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+        .page-btn.active { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+        .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* ===== ABOUT ===== */
+        .about-section {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            padding: 70px 0;
+            text-align: center;
+        }
+        .about-section h2 { font-size: 28px; font-weight: 800; margin-bottom: 16px; }
+        .about-section p { max-width: 700px; margin: 0 auto; color: #cbd5e1; font-size: 16px; line-height: 1.8; }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--gray); }
+        .empty-state i { font-size: 48px; margin-bottom: 16px; opacity: 0.4; display: block; }
+
+        /* ===== FOOTER ===== */
+        footer { background: #0f172a; color: #94a3b8; padding-top: 50px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; padding-bottom: 36px; }
+        .footer-col h3 { color: white; font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+        .footer-col p { font-size: 14px; margin-bottom: 10px; line-height: 1.7; }
+        .footer-col a { color: #60a5fa; text-decoration: none; transition: color 0.2s; word-break: break-word; }
+        .footer-col a:hover { color: white; }
+        .footer-col i { width: 18px; margin-right: 6px; color: #60a5fa; }
+
+        .social-links { display: flex; gap: 12px; }
+        .social-links a {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: center;
+            color: #94a3b8; font-size: 16px;
+            transition: all 0.2s;
+        }
+        .social-links a:hover { background: var(--primary); color: white; }
+
+        .footer-bottom { border-top: 1px solid #1e293b; padding: 20px 0; text-align: center; font-size: 13px; }
+
+        /* ===================================================== */
+        /* ============ CART DRAWER ============================ */
+        /* ===================================================== */
+        .cart-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1100;
+            backdrop-filter: blur(2px);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .cart-overlay.open { display: block; opacity: 1; }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 440px;
+            max-width: 100%;
+            height: 100vh;
+            background: var(--white);
+            z-index: 1101;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+        }
+        .cart-drawer.open { transform: translateX(0); }
+
+        .cart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            flex-shrink: 0;
+        }
+        .cart-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cart-header h2 .cart-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 13px;
+            padding: 2px 10px;
+            border-radius: 50px;
+        }
+        .cart-close {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            border: none; cursor: pointer;
+            font-size: 16px; color: var(--dark);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s;
+        }
+        .cart-close:hover { background: #e2e8f0; }
+
+        .cart-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 24px;
+        }
+
+        /* Empty cart */
+        .cart-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+        .cart-empty i {
+            font-size: 64px;
+            color: #cbd5e1;
+            margin-bottom: 18px;
+            display: block;
+        }
+        .cart-empty h3 { font-size: 18px; color: var(--dark); margin-bottom: 8px; }
+        .cart-empty p { font-size: 14px; margin-bottom: 20px; }
+
+        /* Cart item */
+        .cart-item {
+            display: flex;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f5f9;
+            animation: fadeIn 0.25s ease;
+        }
+        .cart-item:last-child { border-bottom: none; }
+
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+        }
+        .cart-item-img img {
+            width: 100%; height: 100%;
+            object-fit: contain;
+        }
+
+        .cart-item-info { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+        .cart-item-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+            line-height: 1.35;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .cart-item-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .qty-btn {
+            width: 30px; height: 30px;
+            background: white;
+            border: none; cursor: pointer;
+            font-size: 13px; color: var(--dark);
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .qty-btn:hover { background: var(--primary-light); color: var(--primary); }
+        .qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .qty-value {
+            min-width: 32px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .btn-remove {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-remove:hover { background: #fee2e2; }
+
+        /* Cart footer */
+        .cart-footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 18px 24px 24px;
+            flex-shrink: 0;
+            background: white;
+        }
+        .cart-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        .cart-summary-label {
+            font-size: 15px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        .cart-summary-total {
+            font-size: 24px;
+            font-weight: 800;
+            color: #dc2626;
+        }
+        .btn-checkout {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-checkout:hover { background: var(--primary-dark); transform: translateY(-1px); }
+        .btn-checkout:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        /* ===================================================== */
+        /* ============ CHECKOUT MODAL ========================= */
+        /* ===================================================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15,23,42,0.6);
+            z-index: 1200;
+            backdrop-filter: blur(3px);
+            padding: 20px;
+            overflow-y: auto;
+            align-items: flex-start;
+            justify-content: center;
+        }
+        .modal-overlay.open { display: flex; }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 560px;
+            margin: auto;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            animation: modalIn 0.3s ease;
+            overflow: hidden;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .modal-header h2 {
+            font-size: 19px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-close {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            border: none; cursor: pointer;
+            font-size: 15px; color: var(--dark);
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .modal-close:hover { background: #e2e8f0; }
+
+        .modal-body { padding: 24px; max-height: 65vh; overflow-y: auto; }
+
+        /* Order summary in checkout */
+        .checkout-summary {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 22px;
+            font-size: 14px;
+        }
+        .checkout-summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            color: var(--gray);
+        }
+        .checkout-summary-row.total {
+            border-top: 1.5px dashed #cbd5e1;
+            margin-top: 8px;
+            padding-top: 12px;
+            font-weight: 800;
+            font-size: 17px;
+            color: #dc2626;
+        }
+
+        .form-group { margin-bottom: 16px; }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--dark);
+        }
+        .form-group label .required { color: var(--danger); }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+            background: white;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 70px; }
+
+        /* Payment methods */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .payment-option:hover { border-color: var(--primary); }
+        .payment-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        .payment-option input[type="radio"] {
+            accent-color: var(--primary);
+            width: 18px; height: 18px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .payment-option-text { flex: 1; }
+        .payment-option-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .payment-option-title i { color: var(--primary); }
+        .payment-option-desc {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 2px;
+        }
+
+        .bank-info {
+            display: none;
+            background: #fffbeb;
+            border: 1.5px dashed var(--accent);
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+        .bank-info.show { display: block; }
+        .bank-info strong { color: var(--dark); }
+
+        .btn-submit-order {
+            width: 100%;
+            padding: 15px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-submit-order:hover { background: #15803d; transform: translateY(-1px); }
+
+        /* ===================================================== */
+        /* ============ SUCCESS STATE ========================== */
+        /* ===================================================== */
+        .success-box { padding: 40px 24px; text-align: center; }
+        .success-icon {
+            width: 80px; height: 80px;
+            background: #dcfce7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--success);
+            font-size: 38px;
+            animation: popIn 0.5s ease;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .success-box h2 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+        .success-box p { color: var(--gray); font-size: 14px; margin-bottom: 8px; }
+        .order-code {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 18px;
+            padding: 8px 24px;
+            border-radius: 10px;
+            margin: 16px 0 24px;
+            letter-spacing: 1px;
+        }
+
+        /* ===================================================== */
+        /* ============ RESPONSIVE ============================= */
+        /* ===================================================== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 38px; }
+            .search-box { max-width: 280px; }
+        }
+
+        @media (max-width: 900px) {
+            .detail-layout { grid-template-columns: 1fr; gap: 28px; }
+            .hero { padding: 60px 0 50px; }
+            .hero h1 { font-size: 34px; }
+
+            nav.main-nav { display: none; }
+            .hamburger-btn { display: flex; }
+
+            .header-inner { flex-wrap: wrap; gap: 12px; }
+            .logo { order: 1; }
+            .header-actions { order: 2; margin-left: auto; }
+            .search-box { order: 3; flex-basis: 100%; max-width: 100%; margin-top: 4px; }
+        }
+
+        @media (max-width: 680px) {
+            .container { width: 94%; }
+
+            .hero { padding: 44px 0; }
+            .hero h1 { font-size: 26px; letter-spacing: -0.5px; }
+            .hero p { font-size: 14px; }
+            .hero-badge { font-size: 11px; padding: 5px 12px; }
+
+            .section-title { font-size: 24px; }
+            .section-subtitle { font-size: 13px; margin-bottom: 24px; }
+            .products-section { padding: 44px 0; }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .product-img {
+                aspect-ratio: 1 / 1;
+                padding: 6px;
+            }
+
+            .product-info { padding: 10px 12px 14px; }
+            .product-name { font-size: 13px; margin-bottom: 6px; }
+            .product-category { font-size: 9px; margin-bottom: 4px; }
+            .product-price { font-size: 15px; margin-bottom: 10px; }
+            .product-tag { font-size: 9px; padding: 3px 9px; top: 8px; left: 8px; }
+            .btn-add-cart { font-size: 11px; padding: 8px 4px; gap: 4px; }
+
+            .filter-tabs { gap: 6px; }
+            .filter-tab { padding: 8px 14px; font-size: 12px; }
+
+            .detail-page { padding: 28px 0 50px; }
+            .detail-image { aspect-ratio: 1 / 1; padding: 8px; }
+            .detail-info h1 { font-size: 22px; }
+            .detail-price { font-size: 24px; }
+
+            .footer-grid { gap: 28px; }
+            .footer-bottom { font-size: 12px; }
+
+            .page-btn { min-width: 36px; height: 36px; font-size: 13px; padding: 0 10px; }
+
+            .mobile-menu { width: 220px; }
+
+            /* Cart drawer full width trên mobile */
+            .cart-drawer { width: 100%; }
+            .cart-header { padding: 16px 18px; }
+            .cart-body { padding: 12px 18px; }
+            .cart-footer { padding: 14px 18px 20px; }
+            .cart-summary-total { font-size: 20px; }
+
+            .modal-overlay { padding: 0; }
+            .modal { border-radius: 0; min-height: 100vh; max-width: 100%; }
+            .modal-body { max-height: none; }
+        }
+
+        @media (max-width: 380px) {
+            .logo-text { font-size: 18px; }
+            .logo-mark { width: 36px; height: 36px; font-size: 13px; }
+            .product-name { font-size: 12px; }
+            .product-price { font-size: 14px; }
+            .btn-add-cart { font-size: 10px; }
+            .hero h1 { font-size: 22px; }
+            .cart-btn, .hamburger-btn { width: 40px; height: 40px; font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container header-inner">
+            <a class="logo" href="#/" onclick="navigate('#/'); return false;">
+                <div class="logo-mark">HMB</div>
+                <div class="logo-text">HMB <span>Agency</span></div>
+            </a>
+
+            <nav class="main-nav" id="mainNav">
+                <a href="#/" data-route="#">Trang Chủ</a>
+                <a href="#/products" data-route="#/products">Sản Phẩm</a>
+                <a href="#/about" data-route="#/about">Giới Thiệu</a>
+            </nav>
+
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+            </div>
+
+            <div class="header-actions">
+                <button class="cart-btn" onclick="openCart()" aria-label="Giỏ hàng">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span id="cart-count" class="hidden">0</span>
+                </button>
+
+                <button class="hamburger-btn" id="hamburgerBtn" aria-label="Mở menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="mobile-menu" id="mobileMenu">
+                    <a href="#/" data-route="#/" onclick="closeMenu()">
+                        <i class="fas fa-home"></i> Trang Chủ
+                    </a>
+                    <a href="#/products" data-route="#/products" onclick="closeMenu()">
+                        <i class="fas fa-th-large"></i> Sản Phẩm
+                    </a>
+                    <a href="#/about" data-route="#/about" onclick="closeMenu()">
+                        <i class="fas fa-info-circle"></i> Giới Thiệu
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
+
+    <!-- ===== PAGE: HOME ===== -->
+    <div class="page active" id="page-home">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge"><i class="fas fa-fire" style="color:#f59e0b;margin-right:6px;"></i> Bộ sưu tập mới 2025</div>
+                    <h1>Nâng Tầm Cuộc Chơi<br>Cùng <span>HMB Agency</span></h1>
+                    <p>Vợt cầu lông, vợt tennis, quần áo và phụ kiện thể thao chính hãng từ các thương hiệu hàng đầu thế giới.</p>
+                    <a href="#/products" class="btn-primary">Khám phá ngay <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="products-section">
+            <div class="container">
+                <h2 class="section-title">Sản Phẩm Nổi Bật</h2>
+                <p class="section-subtitle">Một vài lựa chọn được yêu thích nhất tại HMB Agency</p>
+                <div class="product-grid" id="featuredGrid"></div>
+                <div style="text-align:center; margin-top:40px;">
+                    <a href="#/products" class="btn-primary">Xem tất cả sản phẩm <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="container">
+                <h2>Về HMB Agency</h2>
+                <p>HMB Agency là địa chỉ tin cậy cung cấp vợt cầu lông, vợt tennis, quần áo và phụ kiện thể thao chính hãng từ Yonex, Victor, Wilson, Babolat, Nike, Adidas. Chúng tôi cam kết chất lượng và giá cả cạnh tranh nhất.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== PAGE: PRODUCTS ===== -->
+    <div class="page" id="page-products">
+        <section class="products-section">
+            <div class="container">
+                <h2 class="section-title">Tất Cả Sản Phẩm</h2>
+                <p class="section-subtitle">Lọc theo danh mục hoặc tìm kiếm sản phẩm bạn muốn</p>
+
+                <div class="filter-tabs" id="filterTabs">
+                    <button class="filter-tab active" data-filter="all">Tất Cả</button>
+                    <button class="filter-tab" data-filter="badminton">Vợt Cầu Lông</button>
+                    <button class="filter-tab" data-filter="tennis">Vợt Tennis</button>
+                    <button class="filter-tab" data-filter="clothing">Quần Áo Thể Thao</button>
+                    <button class="filter-tab" data-filter="accessories">Phụ Kiện & Khác</button>
+                </div>
+
+                <div class="product-grid" id="allProductGrid"></div>
+                <div class="pagination" id="pagination"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== PAGE: DETAIL ===== -->
+    <div class="page" id="page-detail">
+        <div class="container detail-page">
+            <div class="breadcrumb" id="breadcrumb"></div>
+            <div class="detail-layout" id="detailContent"></div>
+        </div>
+    </div>
+
+    <!-- ===== PAGE: ABOUT ===== -->
+    <div class="page" id="page-about">
+        <section class="about-section" style="min-height:60vh; display:flex; align-items:center;">
+            <div class="container">
+                <h2 style="font-size:32px;">Về HMB Agency</h2>
+                <p>HMB Agency là địa chỉ tin cậy cung cấp các loại vợt cầu lông, vợt tennis, quần áo và phụ kiện thể thao chính hãng từ các thương hiệu nổi tiếng như Yonex, Victor, Wilson, Babolat, Nike, Adidas. Chúng tôi cam kết mang đến cho khách hàng sản phẩm chất lượng với giá cả cạnh tranh nhất, cùng dịch vụ tư vấn tận tâm và giao hàng nhanh chóng trên toàn quốc.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>HMB Agency</h3>
+                    <p>Đồ dùng thể thao chính hãng.<br>Nâng tầm cuộc chơi của bạn.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Liên Hệ</h3>
+                    <p><i class="fas fa-phone"></i> Hotline: <a href="tel:0855555140">0855 555 140</a></p>
+                    <p><i class="fas fa-envelope"></i> Email: <a href="mailto:hmb.agency.group@gmail.com">hmb.agency.group@gmail.com</a></p>
+                </div>
+                <div class="footer-col">
+                    <h3>Theo Dõi</h3>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HMB Agency. Tất cả các quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================================================== -->
+    <!-- ============ CART DRAWER ============================ -->
+    <!-- ===================================================== -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Giỏ hàng">
+        <div class="cart-header">
+            <h2>
+                <i class="fas fa-shopping-bag" style="color:var(--primary);"></i>
+                Giỏ Hàng
+                <span class="cart-badge" id="cartHeaderCount">0</span>
+            </h2>
+            <button class="cart-close" onclick="closeCart()" aria-label="Đóng giỏ hàng">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="cart-body" id="cartBody">
+            <!-- Nội dung giỏ hàng render bằng JS -->
+        </div>
+
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-summary">
+                <span class="cart-summary-label">Tổng cộng:</span>
+                <span class="cart-summary-total" id="cartTotal">0đ</span>
+            </div>
+            <button class="btn-checkout" onclick="openCheckout()">
+                <i class="fas fa-credit-card"></i> Thanh Toán
+            </button>
+        </div>
+    </aside>
+
+    <!-- ===================================================== -->
+    <!-- ============ CHECKOUT MODAL ========================= -->
+    <!-- ===================================================== -->
+    <div class="modal-overlay" id="checkoutOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-receipt" style="color:var(--primary);"></i> Thanh Toán Đơn Hàng</h2>
+                <button class="modal-close" onclick="closeCheckout()" aria-label="Đóng">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="modal-body" id="checkoutBody">
+                <!-- Render bằng JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // HÌNH ẢNH THEO NHÓM
+        // ============================================================
+        const IMG = {
+            clothing: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlFX2oVNpo9udvVItybm6LxL2rKEG7YccaCC8HA6ix-SXtIDaNBDEadZE&s=10",
+            badminton: "https://product.hstatic.net/1000135006/product/vot_cau_long_bamboo_s1_a2b3520152874203a14af817555651c0_large.jpg",
+            tennis: "https://cdn.shopvnb.com/uploads/images/bai_viet/vot-tennis-2-1782200810.webp"
+        };
+
+        // ============================================================
+        // DỮ LIỆU SẢN PHẨM
+        // ============================================================
+        const products = [
+            { id: 1, name: "Vợt Cầu Lông Yonex Astrox 88D", category: "badminton", categoryLabel: "Vợt Cầu Lông", price: 3500000, priceDisplay: "3.500.000đ", image: IMG.badminton, tag: "Hot", featured: true, desc: "Vợt cầu lông Yonex Astrox 88D chính hãng, thiết kế nặng đầu cho lối đánh tấn công mạnh mẽ. Khung graphite cao cấp, chịu lực tốt, phù hợp người chơi trung bình đến nâng cao." },
+            { id: 2, name: "Vợt Cầu Lông Victor Thruster K", category: "badminton", categoryLabel: "Vợt Cầu Lông", price: 2800000, priceDisplay: "2.800.000đ", image: IMG.badminton, tag: "Mới", featured: true, desc: "Vợt Victor Thruster K với công nghệ Power Box tăng độ ổn định, chịu lực cao. Phù hợp cho người chơi thích lối đánh tấn công uy lực." },
+            { id: 3, name: "Vợt Cầu Lông Lining Windstorm", category: "badminton", categoryLabel: "Vợt Cầu Lông", price: 2200000, priceDisplay: "2.200.000đ", image: IMG.badminton, tag: "", featured: false, desc: "Vợt cầu lông Lining Windstorm nhẹ, linh hoạt, phù hợp cho người chơi phong trào và bán chuyên. Khung carbon cao cấp, độ bền cao." },
+            { id: 4, name: "Vợt Cầu Lông Apacs Z-Ziggler", category: "badminton", categoryLabel: "Vợt Cầu Lông", price: 1800000, priceDisplay: "1.800.000đ", image: IMG.badminton, tag: "", featured: false, desc: "Vợt Apacs Z-Ziggler với thiết kế linh hoạt, giá thành hợp lý, phù hợp người mới chơi cầu lông." },
+            { id: 5, name: "Vợt Cầu Lông Bamboo S1", category: "badminton", categoryLabel: "Vợt Cầu Lông", price: 1500000, priceDisplay: "1.500.000đ", image: IMG.badminton, tag: "Giá tốt", featured: false, desc: "Vợt cầu lông Bamboo S1 khung carbon, trọng lượng nhẹ, phù hợp cho người mới bắt đầu và người chơi phong trào." },
+            { id: 6, name: "Vợt Tennis Wilson Pro Staff", category: "tennis", categoryLabel: "Vợt Tennis", price: 4200000, priceDisplay: "4.200.000đ", image: IMG.tennis, tag: "Cao cấp", featured: true, desc: "Wilson Pro Staff - dòng vợt huyền thoại với khả năng kiểm soát bóng tuyệt vời. Thiết kế cứng cáp, mang lại cảm giác chính xác và ổn định trong từng cú đánh." },
+            { id: 7, name: "Vợt Tennis Babolat Pure Aero", category: "tennis", categoryLabel: "Vợt Tennis", price: 4500000, priceDisplay: "4.500.000đ", image: IMG.tennis, tag: "Bán chạy", featured: true, desc: "Babolat Pure Aero - cây vợt tạo xoáy hàng đầu, được các tay vợt chuyên nghiệp tin dùng. Công nghệ FSI Spin tối ưu hóa chuyển động của dây, tăng cường độ xoáy." },
+            { id: 8, name: "Vợt Tennis Head Speed MP", category: "tennis", categoryLabel: "Vợt Tennis", price: 3900000, priceDisplay: "3.900.000đ", image: IMG.tennis, tag: "", featured: false, desc: "Vợt Head Speed MP cân bằng giữa sức mạnh và kiểm soát, phù hợp cho nhiều phong cách chơi khác nhau." },
+            { id: 9, name: "Vợt Tennis Yonex EZONE", category: "tennis", categoryLabel: "Vợt Tennis", price: 4100000, priceDisplay: "4.100.000đ", image: IMG.tennis, tag: "Mới", featured: false, desc: "Vợt Yonex EZONE với công nghệ ISOMETRIC mở rộng vùng đánh bóng hiệu quả, mang lại cảm giác êm ái và kiểm soát tốt." },
+            { id: 10, name: "Áo Thể Thao Nam Nike Dri-FIT", category: "clothing", categoryLabel: "Quần Áo Thể Thao", price: 650000, priceDisplay: "650.000đ", image: IMG.clothing, tag: "Mới", featured: true, desc: "Áo thể thao nam Nike Dri-FIT với công nghệ thấm hút mồ hôi vượt trội, giữ cơ thể khô ráo và thoải mái trong suốt quá trình tập luyện. Chất liệu nhẹ, co giãn tốt." },
+            { id: 11, name: "Quần Short Thể Thao Nữ Adidas", category: "clothing", categoryLabel: "Quần Áo Thể Thao", price: 550000, priceDisplay: "550.000đ", image: IMG.clothing, tag: "Hot", featured: true, desc: "Quần short thể thao nữ Adidas với công nghệ AEROREADY thấm hút ẩm, chất liệu tái chế thân thiện môi trường. Thiết kế vừa vặn, thoải mái cho mọi hoạt động." },
+            { id: 12, name: "Áo Khoác Thể Thao Puma", category: "clothing", categoryLabel: "Quần Áo Thể Thao", price: 890000, priceDisplay: "890.000đ", image: IMG.clothing, tag: "", featured: false, desc: "Áo khoác thể thao Puma chất liệu gió nhẹ, giữ ấm cơ thể, thích hợp cho các buổi tập ngoài trời." },
+            { id: 13, name: "Bộ Quần Áo Cầu Lông Nam", category: "clothing", categoryLabel: "Quần Áo Thể Thao", price: 750000, priceDisplay: "750.000đ", image: IMG.clothing, tag: "", featured: false, desc: "Bộ quần áo cầu lông nam chất liệu thun lạnh co giãn 4 chiều, thoáng mát, phù hợp thi đấu và tập luyện." },
+            { id: 14, name: "Áo Thun Thể Thao Nữ Under Armour", category: "clothing", categoryLabel: "Quần Áo Thể Thao", price: 590000, priceDisplay: "590.000đ", image: IMG.clothing, tag: "", featured: false, desc: "Áo thun thể thao nữ Under Armour chất liệu siêu nhẹ, thoáng khí, thấm hút mồ hôi tốt, phù hợp tập gym và chạy bộ." },
+            { id: 15, name: "Giày Tennis Nam Asics", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 1950000, priceDisplay: "1.950.000đ", image: IMG.clothing, tag: "Mới", featured: false, desc: "Giày tennis nam Asics bám sân tốt, đệm êm, bảo vệ cổ chân hiệu quả trong các pha di chuyển nhanh." },
+            { id: 16, name: "Giày Cầu Lông Yonex Power Cushion", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 2100000, priceDisplay: "2.100.000đ", image: IMG.clothing, tag: "Bán chạy", featured: true, desc: "Giày cầu lông Yonex Power Cushion với công nghệ đệm lò xo, giảm chấn tốt, bám sân, bảo vệ đôi chân tối ưu." },
+            { id: 17, name: "Bóng Tennis Wilson Championship", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 180000, priceDisplay: "180.000đ", image: IMG.tennis, tag: "", featured: false, desc: "Hộp 3 bóng tennis Wilson Championship chính hãng, độ nảy tốt, bền bỉ, phù hợp cho cả tập luyện và thi đấu." },
+            { id: 18, name: "Ống Cầu Lông Yonex AS-30", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 320000, priceDisplay: "320.000đ", image: IMG.badminton, tag: "Hot", featured: false, desc: "Ống 12 quả cầu lông Yonex AS-30 lông vũ cao cấp, đường bay ổn định, độ bền cao, phù hợp thi đấu phong trào." },
+            { id: 19, name: "Túi Đựng Vợt Tennis Babolat", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 850000, priceDisplay: "850.000đ", image: IMG.tennis, tag: "", featured: false, desc: "Túi đựng vợt tennis Babolat chất liệu chống thấm, nhiều ngăn tiện lợi, có dây đeo vai êm ái." },
+            { id: 20, name: "Băng Quấn Cán Vợt Yonex", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 90000, priceDisplay: "90.000đ", image: IMG.badminton, tag: "", featured: false, desc: "Băng quấn cán vợt Yonex siêu bám, thấm hút mồ hôi, giúp cầm vợt chắc chắn và thoải mái hơn." },
+            { id: 21, name: "Bình Nước Thể Thao 750ml", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 150000, priceDisplay: "150.000đ", image: IMG.clothing, tag: "", featured: false, desc: "Bình nước thể thao dung tích 750ml, chất liệu nhựa an toàn, nắp chống rò rỉ, tiện mang theo khi tập luyện." },
+            { id: 22, name: "Dây Nhảy Thể Lực Speed", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 120000, priceDisplay: "120.000đ", image: IMG.clothing, tag: "Mới", featured: false, desc: "Dây nhảy thể lực Speed với vòng bi trơn, tốc độ quay nhanh, phù hợp tập luyện cardio và tăng cường thể lực." },
+            { id: 23, name: "Bao Tay Cầu Lông Yonex", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 120000, priceDisplay: "120.000đ", image: IMG.clothing, tag: "Mới", featured: false, desc: "Bao tay cầu lông Yonex chất liệu thoáng khí, thấm hút mồ hôi, tăng độ bám khi cầm vợt, bảo vệ tay khỏi trầy xước." },
+            { id: 24, name: "Bao Tay Tennis Wilson", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 150000, priceDisplay: "150.000đ", image: IMG.tennis, tag: "", featured: false, desc: "Bao tay tennis Wilson chống trơn trượt, đệm êm, giảm chấn khi cầm vợt, phù hợp chơi lâu dài." },
+            { id: 25, name: "Nịt Đeo Đầu Gối Thể Thao", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 180000, priceDisplay: "180.000đ", image: IMG.clothing, tag: "Hot", featured: true, desc: "Nịt đeo đầu gối thể thao co giãn 4 chiều, bảo vệ khớp gối khi vận động mạnh, giảm đau nhức hiệu quả." },
+            { id: 26, name: "Nịt Đeo Cổ Tay Thể Thao", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 90000, priceDisplay: "90.000đ", image: IMG.clothing, tag: "", featured: false, desc: "Nịt đeo cổ tay thể thao thấm hút mồ hôi, bảo vệ khớp cổ tay, phù hợp cầu lông, tennis và tập gym." },
+            { id: 27, name: "Nịt Bụng Thể Thao", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 220000, priceDisplay: "220.000đ", image: IMG.clothing, tag: "", featured: false, desc: "Nịt bụng thể thao hỗ trợ vùng eo, giữ ấm cơ thể, giúp tập luyện hiệu quả và thoải mái hơn." },
+            { id: 28, name: "Vớ Thể Thao Cổ Cao Nam", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 85000, priceDisplay: "85.000đ", image: IMG.clothing, tag: "Mới", featured: false, desc: "Vớ thể thao cổ cao nam chất liệu cotton pha spandex, thấm hút mồ hôi, êm chân, phù hợp mọi môn thể thao." },
+            { id: 29, name: "Vớ Thể Thao Nữ Cổ Ngắn", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 70000, priceDisplay: "70.000đ", image: IMG.clothing, tag: "", featured: false, desc: "Vớ thể thao nữ cổ ngắn, co giãn tốt, thoáng khí, phù hợp chạy bộ, gym và tennis." },
+            { id: 30, name: "Bảo Vệ Đầu Vợt Cầu Lông", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 50000, priceDisplay: "50.000đ", image: IMG.badminton, tag: "", featured: false, desc: "Bảo vệ đầu vợt cầu lông bằng silicon, chống va đập, kéo dài tuổi thọ vợt, lắp vừa nhiều dòng vợt." },
+            { id: 31, name: "Khăn Thể Thao Đa Năng", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 110000, priceDisplay: "110.000đ", image: IMG.clothing, tag: "", featured: false, desc: "Khăn thể thao đa năng siêu thấm, nhanh khô, tiện mang theo khi tập luyện và thi đấu." },
+            { id: 32, name: "Túi Đeo Chéo Thể Thao", category: "accessories", categoryLabel: "Phụ Kiện & Khác", price: 320000, priceDisplay: "320.000đ", image: IMG.clothing, tag: "Mới", featured: false, desc: "Túi đeo chéo thể thao nhỏ gọn, chống thấm nhẹ, đựng điện thoại, ví và phụ kiện khi ra sân." }
+        ];
+
+        // ============================================================
+        // TRẠNG THÁI
+        // ============================================================
+        const ITEMS_PER_PAGE = 8;
+        let state = { filter: 'all', search: '', page: 1 };
+
+        // Giỏ hàng: mảng {id, qty}
+        let cart = loadCart();
+
+        // ============================================================
+        // LOCAL STORAGE
+        // ============================================================
+        function loadCart() {
+            try {
+                const saved = localStorage.getItem('hmb_cart');
+                return saved ? JSON.parse(saved) : [];
+            } catch (e) { return []; }
+        }
+        function saveCart() {
+            try { localStorage.setItem('hmb_cart', JSON.stringify(cart)); } catch (e) {}
+        }
+
+        // ============================================================
+        // HAMBURGER MENU
+        // ============================================================
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+        });
+
+        function openMenu() {
+            mobileMenu.classList.add('open');
+            menuOverlay.classList.add('open');
+            hamburgerBtn.classList.add('active');
+            hamburgerBtn.innerHTML = '<i class="fas fa-times"></i>';
+        }
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+            menuOverlay.classList.remove('open');
+            hamburgerBtn.classList.remove('active');
+            hamburgerBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+        window.addEventListener('resize', () => { if (window.innerWidth > 900) closeMenu(); });
+
+        // ============================================================
+        // HELPERS
+        // ============================================================
+        function formatPrice(n) { return n.toLocaleString('vi-VN') + 'đ'; }
+        function getProduct(id) { return products.find(p => p.id === id); }
+
+        function productCardHTML(p) {
+            return `
+                <div class="product-card" onclick="navigate('#/product/${p.id}')">
+                    <div class="product-img">
+                        <img src="${p.image}" alt="${p.name}" loading="lazy">
+                        ${p.tag ? `<span class="product-tag">${p.tag}</span>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${p.categoryLabel}</div>
+                        <div class="product-name">${p.name}</div>
+                        <div class="product-price">${p.priceDisplay}</div>
+                        <button class="btn-add-cart" onclick="event.stopPropagation(); addToCart(${p.id})">
+                            <i class="fas fa-cart-plus"></i> Thêm vào giỏ
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // CART LOGIC
+        // ============================================================
+        function cartCount() {
+            return cart.reduce((sum, item) => sum + item.qty, 0);
+        }
+
+        function cartTotal() {
+            return cart.reduce((sum, item) => {
+                const p = getProduct(item.id);
+                return p ? sum + p.price * item.qty : sum;
+            }, 0);
+        }
+
+        function updateCartBadge() {
+            const count = cartCount();
+            const badge = document.getElementById('cart-count');
+            const headerCount = document.getElementById('cartHeaderCount');
+            if (badge) {
+                badge.textContent = count;
+                badge.classList.toggle('hidden', count === 0);
+            }
+            if (headerCount) headerCount.textContent = count;
+        }
+
+        function addToCart(id) {
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ id, qty: 1 });
+            }
+            saveCart();
+            updateCartBadge();
+            renderCartBody();
+            openCart();
+            // Hiệu ứng nháy badge
+            const badge = document.getElementById('cart-count');
+            badge.style.transform = 'scale(1.3)';
+            setTimeout(() => badge.style.transform = '', 200);
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            saveCart();
+            updateCartBadge();
+            renderCartBody();
+        }
+
+        function updateQty(id, delta) {
+            const item = cart.find(x => x.id === id);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                removeFromCart(id);
+                return;
+            }
+            saveCart();
+            updateCartBadge();
+            renderCartBody();
+        }
+
+        function openCart() {
+            document.getElementById('cartOverlay').classList.add('open');
+            document.getElementById('cartDrawer').classList.add('open');
+            document.body.classList.add('no-scroll');
+            renderCartBody();
+        }
+
+        function closeCart() {
+            document.getElementById('cartOverlay').classList.remove('open');
+            document.getElementById('cartDrawer').classList.remove('open');
+            document.body.classList.remove('no-scroll');
+        }
+
+        function renderCartBody() {
+            const body = document.getElementById('cartBody');
+            const footer = document.getElementById('cartFooter');
+
+            if (cart.length === 0) {
+                body.innerHTML = `
+                    <div class="cart-empty">
+                        <i class="fas fa-shopping-basket"></i>
+                        <h3>Giỏ hàng trống</h3>
+                        <p>Hãy thêm sản phẩm yêu thích vào giỏ hàng nhé!</p>
+                        <button class="btn-primary" onclick="closeCart(); navigate('#/products');">
+                            <i class="fas fa-shopping-bag"></i> Tiếp tục mua sắm
+                        </button>
+                    </div>
+                `;
+                footer.style.display = 'none';
+                return;
+            }
+
+            footer.style.display = 'block';
+
+            body.innerHTML = cart.map(item => {
+                const p = getProduct(item.id);
+                if (!p) return '';
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-img">
+                            <img src="${p.image}" alt="${p.name}">
+                        </div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${p.name}</div>
+                            <div class="cart-item-price">${p.priceDisplay}</div>
+                            <div class="cart-item-controls">
+                                <div class="qty-control">
+                                    <button class="qty-btn" onclick="updateQty(${p.id}, -1)" aria-label="Giảm">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <span class="qty-value">${item.qty}</span>
+                                    <button class="qty-btn" onclick="updateQty(${p.id}, 1)" aria-label="Tăng">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                                <button class="btn-remove" onclick="removeFromCart(${p.id})">
+                                    <i class="fas fa-trash-alt"></i> Xóa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('cartTotal').textContent = formatPrice(cartTotal());
+        }
+
+        // ============================================================
+        // CHECKOUT
+        // ============================================================
+        let paymentMethod = 'cod';
+
+        function openCheckout() {
+            if (cart.length === 0) return;
+            closeCart();
+            renderCheckoutForm();
+            document.getElementById('checkoutOverlay').classList.add('open');
+            document.body.classList.add('no-scroll');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutOverlay').classList.remove('open');
+            document.body.classList.remove('no-scroll');
+        }
+
+        function renderCheckoutForm() {
+            const total = cartTotal();
+            const count = cartCount();
+            paymentMethod = 'cod';
+
+            document.getElementById('checkoutBody').innerHTML = `
+                <div class="checkout-summary">
+                    <div class="checkout-summary-row">
+                        <span>Số lượng sản phẩm</span>
+                        <strong>${count}</strong>
+                    </div>
+                    <div class="checkout-summary-row total">
+                        <span>Tổng thanh toán</span>
+                        <span>${formatPrice(total)}</span>
+                    </div>
+                </div>
+
+                <form id="checkoutForm" onsubmit="submitOrder(event)">
+                    <div class="form-group">
+                        <label>Họ và tên <span class="required">*</span></label>
+                        <input type="text" name="name" placeholder="Nguyễn Văn A" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại <span class="required">*</span></label>
+                        <input type="tel" name="phone" placeholder="0855 555 140" required pattern="[0-9+\\s\\-]{8,}">
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ nhận hàng <span class="required">*</span></label>
+                        <textarea name="address" placeholder="Số nhà, đường, phường, quận, tỉnh/thành phố" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Ghi chú</label>
+                        <textarea name="note" placeholder="Ghi chú cho đơn hàng (không bắt buộc)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phương thức thanh toán</label>
+                    </div>
+
+                    <div class="payment-methods" id="paymentMethods">
+                        <label class="payment-option selected" data-method="cod">
+                            <input type="radio" name="payment" value="cod" checked>
+                            <div class="payment-option-text">
+                                <div class="payment-option-title">
+                                    <i class="fas fa-money-bill-wave"></i> Thanh toán khi nhận hàng (COD)
+                                </div>
+                                <div class="payment-option-desc">Thanh toán bằng tiền mặt khi nhận hàng</div>
+                            </div>
+                        </label>
+                        <label class="payment-option" data-method="bank">
+                            <input type="radio" name="payment" value="bank">
+                            <div class="payment-option-text">
+                                <div class="payment-option-title">
+                                    <i class="fas fa-university"></i> Chuyển khoản ngân hàng
+                                </div>
+                                <div class="payment-option-desc">Chuyển khoản trước khi giao hàng</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="bank-info" id="bankInfo">
+                        <div><strong>Ngân hàng:</strong> Vietcombank</div>
+                        <div><strong>Số tài khoản:</strong> 0855 555 140</div>
+                        <div><strong>Chủ tài khoản:</strong> HMB AGENCY</div>
+                        <div><strong>Nội dung:</strong> [Số điện thoại] thanh toan don hang</div>
+                        <div style="margin-top:8px;color:#b45309;"><i class="fas fa-info-circle"></i> Vui lòng gửi ảnh chụp chuyển khoản qua hotline sau khi thanh toán.</div>
+                    </div>
+
+                    <button type="submit" class="btn-submit-order">
+                        <i class="fas fa-check-circle"></i> Đặt Hàng
+                    </button>
+                </form>
+            `;
+
+            // Gắn sự kiện chọn phương thức thanh toán
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.addEventListener('click', () => {
+                    document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+                    opt.classList.add('selected');
+                    paymentMethod = opt.dataset.method;
+                    const bankInfo = document.getElementById('bankInfo');
+                    bankInfo.classList.toggle('show', paymentMethod === 'bank');
+                });
+            });
+        }
+
+        function submitOrder(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.name.value.trim();
+            const phone = form.phone.value.trim();
+            const email = form.email.value.trim();
+            const address = form.address.value.trim();
+
+            if (!name || !phone || !email || !address) {
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc.');
+                return;
+            }
+
+            // Tạo mã đơn hàng
+            const orderCode = 'HMB' + Date.now().toString().slice(-8);
+
+            // Render success
+            document.getElementById('checkoutBody').innerHTML = `
+                <div class="success-box">
+                    <div class="success-icon"><i class="fas fa-check"></i></div>
+                    <h2>Đặt hàng thành công!</h2>
+                    <p>Cảm ơn <strong>${name}</strong> đã tin tưởng HMB Agency.</p>
+                    <div class="order-code">${orderCode}</div>
+                    <p>Chúng tôi sẽ liên hệ với bạn qua số <strong>${phone}</strong> trong thời gian sớm nhất để xác nhận đơn hàng.</p>
+                    <p style="margin-top:8px;">
+                        Phương thức thanh toán:
+                        <strong>${paymentMethod === 'cod' ? 'Thanh toán khi nhận hàng (COD)' : 'Chuyển khoản ngân hàng'}</strong>
+                    </p>
+                    <button class="btn-primary" style="margin-top:24px;" onclick="finishOrder()">
+                        <i class="fas fa-home"></i> Về trang chủ
+                    </button>
+                </div>
+            `;
+
+            // Xóa giỏ hàng
+            cart = [];
+            saveCart();
+            updateCartBadge();
+            renderCartBody();
+        }
+
+        function finishOrder() {
+            closeCheckout();
+            navigate('#/');
+        }
+
+        // Đóng checkout khi click ra ngoài
+        document.getElementById('checkoutOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'checkoutOverlay') closeCheckout();
+        });
+
+        // ============================================================
+        // RENDER: FEATURED
+        // ============================================================
+        function renderFeatured() {
+            const featured = products.filter(p => p.featured).slice(0, 4);
+            document.getElementById('featuredGrid').innerHTML = featured.map(productCardHTML).join('');
+        }
+
+        // ============================================================
+        // RENDER: ALL PRODUCTS
+        // ============================================================
+        function getFilteredProducts() {
+            return products.filter(p => {
+                const matchCat = state.filter === 'all' || p.category === state.filter;
+                const q = state.search.toLowerCase().trim();
+                const matchSearch = !q || p.name.toLowerCase().includes(q) || p.categoryLabel.toLowerCase().includes(q);
+                return matchCat && matchSearch;
+            });
+        }
+
+        function renderProductsPage() {
+            const filtered = getFilteredProducts();
+            const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+            if (state.page > totalPages) state.page = totalPages;
+
+            const start = (state.page - 1) * ITEMS_PER_PAGE;
+            const pageItems = filtered.slice(start, start + ITEMS_PER_PAGE);
+
+            const grid = document.getElementById('allProductGrid');
+            grid.innerHTML = pageItems.length
+                ? pageItems.map(productCardHTML).join('')
+                : `<div class="empty-state"><i class="fas fa-search"></i><h3>Không tìm thấy sản phẩm</h3><p>Thử thay đổi từ khóa hoặc danh mục khác.</p></div>`;
+
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            const wrap = document.getElementById('pagination');
+            if (totalPages <= 1) { wrap.innerHTML = ''; return; }
+
+            let html = '';
+            html += `<button class="page-btn" ${state.page === 1 ? 'disabled' : ''} onclick="goToPage(${state.page - 1})"><i class="fas fa-chevron-left"></i></button>`;
+
+            let startPage = Math.max(1, state.page - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+            if (endPage - startPage < 4) startPage = Math.max(1, endPage - 4);
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="page-btn ${i === state.page ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="page-btn" ${state.page === totalPages ? 'disabled' : ''} onclick="goToPage(${state.page + 1})"><i class="fas fa-chevron-right"></i></button>`;
+            wrap.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            state.page = page;
+            renderProductsPage();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================================
+        // RENDER: DETAIL
+        // ============================================================
+        function renderDetail(id) {
+            const p = getProduct(id);
+            const container = document.getElementById('detailContent');
+            const breadcrumb = document.getElementById('breadcrumb');
+
+            if (!p) {
+                breadcrumb.innerHTML = '';
+                container.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><i class="fas fa-exclamation-circle"></i><h3>Không tìm thấy sản phẩm</h3><p><a href="#/products" style="color:var(--primary);">Quay lại danh sách sản phẩm</a></p></div>`;
+                return;
+            }
+
+            breadcrumb.innerHTML = `
+                <a href="#/">Trang Chủ</a>
+                <span>/</span>
+                <a href="#/products">Sản Phẩm</a>
+                <span>/</span>
+                <span style="color:var(--dark);">${p.name}</span>
+            `;
+
+            container.innerHTML = `
+                <div class="detail-image">
+                    <img src="${p.image}" alt="${p.name}">
+                </div>
+                <div class="detail-info">
+                    <span class="detail-cat">${p.categoryLabel}</span>
+                    <h1>${p.name}</h1>
+                    <div class="detail-price">${p.priceDisplay}</div>
+                    <p class="detail-desc">${p.desc}</p>
+                    <div class="detail-actions">
+                        <button class="btn-back" onclick="navigate('#/products')">
+                            <i class="fas fa-arrow-left"></i> Quay lại
+                        </button>
+                        <button class="btn-buy" onclick="addToCart(${p.id})">
+                            <i class="fas fa-shopping-bag"></i> Thêm vào giỏ
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ============================================================
+        // SPA ROUTER
+        // ============================================================
+        function navigate(hash) {
+            if (location.hash !== hash) {
+                location.hash = hash;
+            } else {
+                handleRoute();
+            }
+        }
+
+        function handleRoute() {
+            const hash = location.hash || '#/';
+            const parts = hash.replace('#/', '').split('/').filter(Boolean);
+
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('#mainNav a, #mobileMenu a').forEach(a => a.classList.remove('active'));
+
+            let routeName = 'home';
+            if (parts.length === 0) routeName = 'home';
+            else if (parts[0] === 'products') routeName = 'products';
+            else if (parts[0] === 'about') routeName = 'about';
+            else if (parts[0] === 'product' && parts[1]) routeName = 'detail';
+
+            if (routeName === 'home') {
+                document.getElementById('page-home').classList.add('active');
+                document.querySelector('#mainNav a[data-route="#/"]')?.classList.add('active');
+                document.querySelector('#mobileMenu a[data-route="#/"]')?.classList.add('active');
+            } else if (routeName === 'products') {
+                document.getElementById('page-products').classList.add('active');
+                document.querySelector('#mainNav a[data-route="#/products"]')?.classList.add('active');
+                document.querySelector('#mobileMenu a[data-route="#/products"]')?.classList.add('active');
+                renderProductsPage();
+            } else if (routeName === 'about') {
+                document.getElementById('page-about').classList.add('active');
+                document.querySelector('#mainNav a[data-route="#/about"]')?.classList.add('active');
+                document.querySelector('#mobileMenu a[data-route="#/about"]')?.classList.add('active');
+            } else if (routeName === 'detail') {
+                document.getElementById('page-detail').classList.add('active');
+                renderDetail(parseInt(parts[1]));
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============================================================
+        // FILTER TABS
+        // ============================================================
+        document.getElementById('filterTabs').addEventListener('click', (e) => {
+            const btn = e.target.closest('.filter-tab');
+            if (!btn) return;
+
+            document.querySelectorAll('#filterTabs .filter-tab').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            state.filter = btn.dataset.filter;
+            state.page = 1;
+            renderProductsPage();
+        });
+
+        // ============================================================
+        // SEARCH
+        // ============================================================
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            state.search = e.target.value;
+            state.page = 1;
+            if (!location.hash.startsWith('#/products')) {
+                navigate('#/products');
+            } else {
+                renderProductsPage();
+            }
+        });
+
+        // Phím ESC để đóng cart/checkout
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (document.getElementById('checkoutOverlay').classList.contains('open')) {
+                    closeCheckout();
+                } else if (document.getElementById('cartDrawer').classList.contains('open')) {
+                    closeCart();
+                }
+            }
+        });
+
+        // ============================================================
+        // KHỞI TẠO
+        // ============================================================
+        renderFeatured();
+        updateCartBadge();
+        renderCartBody();
+        window.addEventListener('hashchange', handleRoute);
+        handleRoute();
+    </script>
+</body>
+</html>
